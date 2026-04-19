@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConTacto - Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<main class="container">
+    <section class="card login-card index-card" aria-labelledby="home-title">
+        <div class="login-header">
+            <p class="login-kicker">Bienvenida</p>
+            <h1 id="home-title">ConTacto <span class="brand-emoji" aria-hidden="true">👋</span></h1>
+        </div>
+        <p class="subtitle">
+            Sistema de comunicacion accesible para personas con sordera o sordoceguera.
+        </p>
+
+        <div class="button-group index-actions">
+            <a class="btn btn-primary" th:href="@{/login}" aria-label="Ir a iniciar sesion">Iniciar sesion</a>
+            <a class="btn btn-secondary" th:href="@{/panel}" aria-label="Ir al panel principal">Ver panel</a>
+        </div>
+    </section>
+</main>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

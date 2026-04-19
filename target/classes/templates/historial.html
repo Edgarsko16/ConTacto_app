@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConTacto - Historial</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<main class="container">
+    <section class="card panel-card">
+        <h1>Historial de mensajes</h1>
+        <p class="subtitle">Registro de necesidades enviadas desde el panel.</p>
+        <p class="field-help">Rol actual: <strong th:text="${rol}">PROFESIONAL</strong></p>
+
+        <div class="history-table-wrapper" role="region" aria-label="Tabla de historial de mensajes">
+            <table class="history-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Contenido</th>
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(mensajes)}">
+                    <td colspan="4">No hay mensajes guardados aun.</td>
+                </tr>
+                <tr th:each="mensaje : ${mensajes}">
+                    <td th:text="${mensaje.id}">1</td>
+                    <td th:text="${mensaje.contenido}">Agua</td>
+                    <td th:text="${#temporals.format(mensaje.fecha, 'dd/MM/yyyy HH:mm:ss')}">18/04/2026 17:10:00</td>
+                    <td th:text="${mensaje.usuario}">admin</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-group panel-actions">
+            <form th:if="${rol == 'ADMIN'}" th:action="@{/historial/borrar}" method="post"
+                  onsubmit="return confirm('¿Seguro que deseas borrar todo el historial?');">
+                <button class="btn btn-danger" type="submit">Borrar historial</button>
+            </form>
+            <a class="btn btn-secondary" th:if="${rol == 'ADMIN' or rol == 'PROFESIONAL'}" th:href="@{/configuracion}">Configuracion</a>
+            <a class="btn btn-secondary" th:if="${rol == 'ADMIN'}" th:href="@{/panel}">Volver al panel</a>
+            <a class="btn btn-secondary" th:href="@{/}">Ir al inicio</a>
+        </div>
+    </section>
+</main>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

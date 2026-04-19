@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConTacto - Panel</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<main class="container">
+    <section class="card panel-card">
+        <h1>Panel principal</h1>
+        <p class="subtitle">
+            Bienvenido/a, <strong id="panel-username" th:text="${username}">Invitado</strong>. Selecciona una necesidad basica.
+        </p>
+        <p class="field-help">Rol actual: <strong th:text="${rol}">USUARIO</strong></p>
+
+        <div class="needs-grid" aria-label="Necesidades basicas">
+            <button
+                    th:each="necesidad : ${necesidades}"
+                    class="need-btn"
+                    th:classappend="${necesidad.cssClass}"
+                    type="button"
+                    th:attr="aria-label=${necesidad.mensajeVoz},
+                        data-pattern=${necesidad.patronVibracion},
+                        data-speech=${necesidad.mensajeVoz}">
+                <span class="need-icon" aria-hidden="true" th:text="${necesidad.icono}">💧</span>
+                <span class="need-text" th:text="${necesidad.nombre}">Agua</span>
+            </button>
+        </div>
+        <p id="message-display" class="message-display" aria-live="assertive">
+            Pulsa un boton para comunicar tu necesidad
+        </p>
+        <p id="vibration-message" class="info-message" aria-live="polite"></p>
+
+        <div class="button-group panel-actions">
+            <a class="btn btn-secondary" th:if="${rol == 'ADMIN'}" th:href="@{/historial}">Ver historial</a>
+            <a class="btn btn-secondary" th:if="${rol == 'ADMIN' or rol == 'PROFESIONAL'}" th:href="@{/configuracion}">Configuracion</a>
+            <a class="btn btn-secondary" th:href="@{/}">Salir al inicio</a>
+        </div>
+    </section>
+</main>
+<div id="app-toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
